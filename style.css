@@ -130,28 +130,37 @@ body {
   width: 100%;
 }
 
-.ставка-менија {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px 26px;
-  font-size: 1.15rem;
-  font-weight: 600;
-  font-family: inherit;
-  color: var(--text);
-  cursor: pointer;
-  text-align: left;
-  overflow: hidden;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+/*
+  ВАЖНО: ставке менија су центриране (и хоризонтално и вертикално)
+  и великим словима.
+*/
+button.ставка-менија {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  padding: 32px 26px !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  color: var(--text) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.3s ease,
-              border-color 0.3s ease;
+              border-color 0.3s ease !important;
   animation: menuIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
-.ставка-менија::before {
+button.ставка-менија::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -161,18 +170,18 @@ body {
   pointer-events: none;
 }
 
-.ставка-менија:hover {
-  transform: translateY(-6px);
-  border-color: var(--border-hover);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--glow);
+button.ставка-менија:hover {
+  transform: translateY(-6px) !important;
+  border-color: var(--border-hover) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--glow) !important;
 }
 
-.ставка-менија:hover::before {
+button.ставка-менија:hover::before {
   opacity: 1;
 }
 
-.ставка-менија:active {
-  transform: translateY(-2px) scale(0.99);
+button.ставка-менија:active {
+  transform: translateY(-2px) scale(0.99) !important;
 }
 
 @keyframes menuIn {
@@ -185,7 +194,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
   width: 100%;
   max-width: 680px;
 }
@@ -218,14 +227,10 @@ body {
 .дугмад {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12px;
   width: 100%;
 }
 
-/*
-  ВАЖНО: сва правила за дугме су овде, са !important где је потребно,
-  да ништа не може да их прегази.
-*/
 button.дугме-одговор {
   position: relative !important;
   display: flex !important;
@@ -233,17 +238,17 @@ button.дугме-одговор {
   justify-content: center !important;
   text-align: center !important;
   width: 100% !important;
-  min-height: 90px !important;
+  min-height: 64px !important;
   padding: 0 !important;
   background: var(--surface) !important;
   border: 2px solid var(--border) !important;
   border-radius: var(--radius-sm) !important;
   color: var(--text) !important;
   font-family: 'Inter', system-ui, sans-serif !important;
-  font-size: 2.4rem !important;
+  font-size: 1.6rem !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.1em !important;
+  letter-spacing: 0.05em !important;
   line-height: 1 !important;
   cursor: pointer !important;
   overflow: hidden !important;
@@ -445,19 +450,18 @@ button.дугме-одговор.нетачно {
 }
 
 .резултат-дугмад .ставка-менија {
-  text-align: center;
   padding: 20px;
   font-size: 1rem;
 }
 
 .резултат-понови {
-  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-  border-color: transparent;
-  color: #fff;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2)) !important;
+  border-color: transparent !important;
+  color: #fff !important;
 }
 
 .резултат-понови:hover {
-  box-shadow: 0 16px 36px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 16px 36px rgba(99, 102, 241, 0.5) !important;
 }
 
 /* ================= РЕСПОНЗИВНО ================= */
@@ -476,17 +480,17 @@ button.дугме-одговор.нетачно {
     grid-template-columns: 1fr;
     gap: 14px;
   }
-  .ставка-менија {
-    padding: 24px 20px;
-    font-size: 1.05rem;
+  button.ставка-менија {
+    padding: 24px 20px !important;
+    font-size: 1.05rem !important;
   }
   .дугмад {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
   }
   button.дугме-одговор {
-    font-size: 1.8rem !important;
-    min-height: 76px !important;
+    font-size: 1.4rem !important;
+    min-height: 58px !important;
   }
   .резултат-круг {
     width: 130px;
@@ -501,11 +505,12 @@ button.дугме-одговор.нетачно {
 }
 
 @media (max-width: 420px) {
-  .дугмад {
-    grid-template-columns: 1fr;
-  }
   button.дугме-одговор {
-    min-height: 68px !important;
-    font-size: 1.6rem !important;
+    font-size: 1.3rem !important;
+    min-height: 54px !important;
+    letter-spacing: 0.02em !important;
+  }
+  .дугмад {
+    gap: 8px;
   }
 }
