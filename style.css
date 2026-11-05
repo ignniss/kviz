@@ -1,0 +1,196 @@
+:root {
+  --позадина: #0f172a;
+  --површина: #1e293b;
+  --површина-светла: #334155;
+  --текст: #e2e8f0;
+  --текст-слаби: #94a3b8;
+  --акценат: #6366f1;
+  --акценат-светли: #818cf8;
+  --тачно: #22c55e;
+  --нетачно: #ef4444;
+  --радијус: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #1e293b 0%, #0f172a 60%);
+  color: var(--текст);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.заглавље {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  gap: 16px;
+}
+
+.наслов {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, var(--акценат-светли), #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.дугме-назад {
+  background: var(--површина);
+  color: var(--текст);
+  border: 1px solid var(--површина-светла);
+  padding: 10px 18px;
+  border-radius: var(--радијус);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+.дугме-назад:hover {
+  background: var(--површина-светла);
+  transform: translateX(-3px);
+}
+
+.екран {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  gap: 24px;
+}
+
+/* ---------- МЕНИ ---------- */
+.мени {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.ставка-менија {
+  background: linear-gradient(135deg, var(--површина), #273449);
+  border: 1px solid var(--површина-светла);
+  border-radius: var(--радијус);
+  padding: 26px 22px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--текст);
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+  animation: улаз 0.4s ease backwards;
+}
+.ставка-менија::after {
+  content: "→";
+  position: absolute;
+  right: 20px;
+  opacity: 0;
+  transition: opacity 0.25s, right 0.25s;
+}
+.ставка-менија:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.25);
+  border-color: var(--акценат);
+}
+.ставка-менија:hover::after {
+  opacity: 1;
+  right: 14px;
+}
+
+@keyframes улаз {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- КАРТИЦА ---------- */
+.картица-оквир {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.картица-слика {
+  width: 100%;
+  border-radius: var(--радијус);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: окретање 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes окретање {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(75deg) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0) scale(1);
+  }
+}
+
+/* ---------- ДУГМАД ---------- */
+.дугмад {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+.дугме-одговор {
+  background: var(--површина);
+  border: 2px solid var(--површина-светла);
+  border-radius: var(--радијус);
+  color: var(--текст);
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 20px 0;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+  animation: улаз 0.4s ease backwards;
+}
+.дугме-одговор:hover:not(:disabled) {
+  background: var(--површина-светла);
+  border-color: var(--акценат);
+  transform: translateY(-2px);
+}
+.дугме-одговор:disabled { cursor: default; }
+
+.дугме-одговор.тачно {
+  background: var(--тачно);
+  border-color: var(--тачно);
+  animation: пулс 0.5s ease;
+}
+.дугме-одговор.нетачно {
+  background: var(--нетачно);
+  border-color: var(--нетачно);
+  animation: тресење 0.4s ease;
+}
+
+@keyframes пулс {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+@keyframes тресење {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-8px); }
+  75%      { transform: translateX(8px); }
+}
+
+.порука {
+  font-size: 1.1rem;
+  color: var(--текст-слаби);
+  text-align: center;
+  min-height: 1.5em;
+}
