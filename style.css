@@ -1,196 +1,511 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 :root {
-  --позадина: #0f172a;
-  --површина: #1e293b;
-  --површина-светла: #334155;
-  --текст: #e2e8f0;
-  --текст-слаби: #94a3b8;
-  --акценат: #6366f1;
-  --акценат-светли: #818cf8;
-  --тачно: #22c55e;
-  --нетачно: #ef4444;
-  --радијус: 16px;
+  --bg-1: #0a0e27;
+  --bg-2: #131a3a;
+  --surface: rgba(30, 41, 82, 0.55);
+  --surface-hover: rgba(45, 60, 110, 0.75);
+  --border: rgba(120, 140, 220, 0.18);
+  --border-hover: rgba(140, 160, 255, 0.55);
+  --text: #e8ecff;
+  --text-dim: #9aa4d0;
+  --accent-1: #6366f1;
+  --accent-2: #a855f7;
+  --correct: #22c55e;
+  --wrong: #ef4444;
+  --radius: 20px;
+  --radius-sm: 14px;
+  --glow: 0 0 40px rgba(99, 102, 241, 0.35);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
 
 body {
-  font-family: "Segoe UI", system-ui, sans-serif;
-  background: radial-gradient(circle at top, #1e293b 0%, #0f172a 60%);
-  color: var(--текст);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-1);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99, 102, 241, 0.25), transparent),
+    radial-gradient(ellipse 60% 50% at 90% 10%, rgba(168, 85, 247, 0.18), transparent),
+    radial-gradient(ellipse 50% 40% at 10% 20%, rgba(236, 72, 153, 0.12), transparent),
+    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  background-attachment: fixed;
+  color: var(--text);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
+/* ================= ЗАГЛАВЉЕ ================= */
 .заглавље {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 32px;
+  padding: 22px 36px;
   gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(10, 14, 39, 0.65);
+  border-bottom: 1px solid var(--border);
 }
 
 .наслов {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  background: linear-gradient(90deg, var(--акценат-светли), #a78bfa);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #c084fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  position: relative;
+}
+
+.наслов::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2), transparent);
+  border-radius: 2px;
 }
 
 .дугме-назад {
-  background: var(--површина);
-  color: var(--текст);
-  border: 1px solid var(--површина-светла);
-  padding: 10px 18px;
-  border-radius: var(--радијус);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 11px 20px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-}
-.дугме-назад:hover {
-  background: var(--површина-светла);
-  transform: translateX(-3px);
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: inherit;
+  backdrop-filter: blur(10px);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
+.дугме-назад:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
+  transform: translateX(-4px);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+}
+
+.дугме-назад:active {
+  transform: translateX(-2px) scale(0.97);
+}
+
+/* ================= ЕКРАН ================= */
 .екран {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px;
-  gap: 24px;
+  justify-content: flex-start;
+  padding: 48px 24px 60px;
+  gap: 32px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* ---------- МЕНИ ---------- */
+/* ================= МЕНИ ================= */
 .мени {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
   width: 100%;
-  max-width: 900px;
 }
 
 .ставка-менија {
-  background: linear-gradient(135deg, var(--површина), #273449);
-  border: 1px solid var(--површина-светла);
-  border-radius: var(--радијус);
-  padding: 26px 22px;
-  font-size: 1.1rem;
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 26px;
+  font-size: 1.15rem;
   font-weight: 600;
-  color: var(--текст);
+  font-family: inherit;
+  color: var(--text);
   cursor: pointer;
   text-align: left;
-  position: relative;
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
-  animation: улаз 0.4s ease backwards;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  animation: menuIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
-.ставка-менија::after {
-  content: "→";
+
+.ставка-менија::before {
+  content: '';
   position: absolute;
-  right: 20px;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), transparent 60%);
   opacity: 0;
-  transition: opacity 0.25s, right 0.25s;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
+
 .ставка-менија:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.25);
-  border-color: var(--акценат);
+  transform: translateY(-6px);
+  border-color: var(--border-hover);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--glow);
 }
-.ставка-менија:hover::after {
+
+.ставка-менија:hover::before {
   opacity: 1;
-  right: 14px;
 }
 
-@keyframes улаз {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+.ставка-менија:active {
+  transform: translateY(-2px) scale(0.99);
 }
 
-/* ---------- КАРТИЦА ---------- */
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ================= КАРТИЦА ================= */
 .картица-оквир {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
   width: 100%;
-  max-width: 640px;
+  max-width: 680px;
 }
 
 .картица-слика {
   width: 100%;
-  border-radius: var(--радијус);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), var(--glow);
   user-select: none;
   -webkit-user-drag: none;
-  animation: окретање 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  border: 1px solid var(--border);
+  animation: cardFlip 0.75s cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
+  transform-origin: center;
 }
 
-@keyframes окретање {
-  from {
+@keyframes cardFlip {
+  0% {
     opacity: 0;
-    transform: perspective(1000px) rotateY(75deg) scale(0.85);
+    transform: perspective(1200px) rotateY(80deg) scale(0.8);
+    filter: blur(8px);
   }
-  to {
+  100% {
     opacity: 1;
-    transform: perspective(1000px) rotateY(0) scale(1);
+    transform: perspective(1200px) rotateY(0) scale(1);
+    filter: blur(0);
   }
 }
 
-/* ---------- ДУГМАД ---------- */
+/* ================= ДУГМАД ОДГОВОРА ================= */
 .дугмад {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  gap: 16px;
   width: 100%;
 }
 
-.дугме-одговор {
-  background: var(--површина);
-  border: 2px solid var(--површина-светла);
-  border-radius: var(--радијус);
-  color: var(--текст);
-  font-size: 1.4rem;
-  font-weight: 700;
-  padding: 20px 0;
-  cursor: pointer;
-  transition: transform 0.15s, background 0.2s, border-color 0.2s;
-  animation: улаз 0.4s ease backwards;
+/*
+  ВАЖНО: сва правила за дугме су овде, са !important где је потребно,
+  да ништа не може да их прегази.
+*/
+button.дугме-одговор {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  min-height: 90px !important;
+  padding: 0 !important;
+  background: var(--surface) !important;
+  border: 2px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--text) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 2.4rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  transition: transform 0.15s ease, background 0.25s ease,
+              border-color 0.25s ease, box-shadow 0.25s ease !important;
+  animation: btnIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
-.дугме-одговор:hover:not(:disabled) {
-  background: var(--површина-светла);
-  border-color: var(--акценат);
-  transform: translateY(-2px);
-}
-.дугме-одговор:disabled { cursor: default; }
 
-.дугме-одговор.тачно {
-  background: var(--тачно);
-  border-color: var(--тачно);
-  animation: пулс 0.5s ease;
-}
-.дугме-одговор.нетачно {
-  background: var(--нетачно);
-  border-color: var(--нетачно);
-  animation: тресење 0.4s ease;
+button.дугме-одговор::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
 }
 
-@keyframes пулс {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.08); }
+button.дугме-одговор:hover:not(:disabled) {
+  background: var(--surface-hover) !important;
+  border-color: var(--accent-1) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35) !important;
 }
-@keyframes тресење {
+
+button.дугме-одговор:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+button.дугме-одговор:active:not(:disabled) {
+  transform: translateY(-1px) scale(0.97) !important;
+}
+
+button.дугме-одговор:disabled {
+  cursor: default !important;
+}
+
+@keyframes btnIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+button.дугме-одговор.тачно {
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+  border-color: #4ade80 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.6) !important;
+  animation: correctPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+button.дугме-одговор.нетачно {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  border-color: #f87171 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.5) !important;
+  animation: wrongShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes correctPulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@keyframes wrongShake {
   0%, 100% { transform: translateX(0); }
-  25%      { transform: translateX(-8px); }
-  75%      { transform: translateX(8px); }
+  15%      { transform: translateX(-10px); }
+  30%      { transform: translateX(9px); }
+  45%      { transform: translateX(-7px); }
+  60%      { transform: translateX(5px); }
+  75%      { transform: translateX(-3px); }
 }
 
+/* ================= ПОРУКА ================= */
 .порука {
-  font-size: 1.1rem;
-  color: var(--текст-слаби);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-dim);
   text-align: center;
-  min-height: 1.5em;
+  min-height: 1.6em;
+  padding: 8px 20px;
+  border-radius: 12px;
+  animation: fadeIn 0.4s ease backwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= ПРОГРЕС ================= */
+.прогрес {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: fadeIn 0.4s ease;
+}
+
+.прогрес-текст {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+.прогрес-трака {
+  width: 100%;
+  height: 6px;
+  background: rgba(120, 140, 220, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.прогрес-пуњење {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  border-radius: 6px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+}
+
+/* ================= РЕЗУЛТАТ ================= */
+.резултат-оквир {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 24px;
+  text-align: center;
+  animation: menuIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.резултат-круг {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(
+    var(--accent-1) 0%,
+    var(--accent-2) var(--попуњено),
+    rgba(120, 140, 220, 0.15) var(--попуњено)
+  );
+  position: relative;
+  animation: correctPulse 0.8s ease;
+}
+
+.резултат-круг::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  background: var(--bg-2);
+}
+
+.резултат-број {
+  position: relative;
+  font-size: 2.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #a5b4fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.03em;
+}
+
+.резултат-наслов {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff, #c084fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.резултат-детаљи {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+}
+
+.резултат-детаљи strong {
+  color: var(--text);
+  font-size: 1.2rem;
+}
+
+.резултат-дугмад {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 8px;
+}
+
+.резултат-дугмад .ставка-менија {
+  text-align: center;
+  padding: 20px;
+  font-size: 1rem;
+}
+
+.резултат-понови {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  border-color: transparent;
+  color: #fff;
+}
+
+.резултат-понови:hover {
+  box-shadow: 0 16px 36px rgba(99, 102, 241, 0.5);
+}
+
+/* ================= РЕСПОНЗИВНО ================= */
+@media (max-width: 720px) {
+  .заглавље {
+    padding: 18px 20px;
+  }
+  .наслов {
+    font-size: 1.3rem;
+  }
+  .екран {
+    padding: 32px 16px 40px;
+    gap: 24px;
+  }
+  .мени {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .ставка-менија {
+    padding: 24px 20px;
+    font-size: 1.05rem;
+  }
+  .дугмад {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  button.дугме-одговор {
+    font-size: 1.8rem !important;
+    min-height: 76px !important;
+  }
+  .резултат-круг {
+    width: 130px;
+    height: 130px;
+  }
+  .резултат-број {
+    font-size: 2.1rem;
+  }
+  .резултат-наслов {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .дугмад {
+    grid-template-columns: 1fr;
+  }
+  button.дугме-одговор {
+    min-height: 68px !important;
+    font-size: 1.6rem !important;
+  }
 }
