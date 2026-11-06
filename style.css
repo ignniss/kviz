@@ -62,7 +62,7 @@ body {
 }
 
 .наслов {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #c084fc 100%);
@@ -144,7 +144,7 @@ button.ставка-менија {
   border: 1px solid var(--border) !important;
   border-radius: var(--radius) !important;
   padding: 32px 26px !important;
-  font-size: 1.15rem !important;
+  font-size: 1.6rem !important;
   font-weight: 700 !important;
   font-family: 'Inter', system-ui, sans-serif !important;
   color: var(--text) !important;
@@ -240,10 +240,10 @@ button.дугме-одговор {
   width: 100% !important;
   min-height: 64px !important;
   padding: 0 !important;
-  background: var(--surface) !important;
-  border: 2px solid var(--border) !important;
+  background: #d9c7a3 !important;
+  border: 2px solid #c4ae87 !important;
   border-radius: var(--radius-sm) !important;
-  color: var(--text) !important;
+   color: #3a2f1e !important; 
   font-family: 'Inter', system-ui, sans-serif !important;
   font-size: 1.6rem !important;
   font-weight: 800 !important;
@@ -270,10 +270,10 @@ button.дугме-одговор::before {
 }
 
 button.дугме-одговор:hover:not(:disabled) {
-  background: var(--surface-hover) !important;
-  border-color: var(--accent-1) !important;
+  background: #e6d5b3 !important;          /* светлија песак */
+  border-color: #a8926a !important;
   transform: translateY(-3px) !important;
-  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35) !important;
+  box-shadow: 0 12px 28px rgba(180, 150, 100, 0.4) !important;
 }
 
 button.дугме-одговор:hover:not(:disabled)::before {
@@ -482,7 +482,7 @@ button.дугме-одговор.нетачно {
   }
   button.ставка-менија {
     padding: 24px 20px !important;
-    font-size: 1.05rem !important;
+    font-size: 1.2rem !important;
   }
   .дугмад {
     grid-template-columns: repeat(4, 1fr);
@@ -513,4 +513,10 @@ button.дугме-одговор.нетачно {
   .дугмад {
     gap: 8px;
   }
+}
+body.са-позадином {
+  background-image: var(--позадина) !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

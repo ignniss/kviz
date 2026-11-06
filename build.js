@@ -9,14 +9,16 @@ const ИЗЛАЗ = "./kartice";
 if (fs.existsSync(ИЗЛАЗ)) fs.rmSync(ИЗЛАЗ, { recursive: true });
 fs.mkdirSync(ИЗЛАЗ, { recursive: true });
 
-const манифест = [];
 const хеш = т => crypto.createHash("md5").update(т).digest("hex").slice(0, 8);
-
-// дозвољени формати слика
 const јеСлика = име => /\.(png|jpe?g)$/i.test(име);
 
 function обиђи(пут, релативнаСтаза) {
-  const чвор = { назив: path.basename(пут), деца: [], карте: [] };
+  const чвор = {
+    назив: path.basename(пут),
+    деца: [],
+    карте: [],
+    позадина: null,
+  };
   const ставке = fs.readdirSync(пут).sort();
 
   for (const ставка of ставке) {
@@ -25,8 +27,14 @@ function обиђи(пут, релативнаСтаза) {
 
     if (fs.statSync(пун).isDirectory()) {
       чвор.деца.push(обиђи(пун, рел));
+    } else if (ставка.toLowerCase() === "pozadina.png") {
+      // позадина за овај чвор
+      const id = хеш(рел);
+      const екст = path.extname(ставка).toLowerCase();
+      fs.copyFileSync(пун, path.join(ИЗЛАЗ, "pozadina-" + id + екст));
+      чвор.позадина = "kartice/pozadina-" + id + екст;
+      console.log("  + позадина:", рел);
     } else if (јеСлика(ставка)) {
-      // име без екстензије: "01-Б" или "5-1-01-Б"
       const безЕкст = ставка.replace(/\.(png|jpe?g)$/i, "");
       const делови = безЕкст.split("-");
       const тачан = делови[делови.length - 1];
@@ -37,9 +45,8 @@ function обиђи(пут, релативнаСтаза) {
         continue;
       }
 
-      const екст = path.extname(ставка).toLowerCase(); // .png / .jpg / .jpeg
+      const екст = path.extname(ставка).toLowerCase();
       const id = хеш(рел);
-
       fs.copyFileSync(пун, path.join(ИЗЛАЗ, id + екст));
 
       чвор.карте.push({
@@ -48,7 +55,6 @@ function обиђи(пут, релативнаСтаза) {
         тачан,
         фајл: "kartice/" + id + екст,
       });
-
       console.log("  +", рел, "→ тачан:", тачан);
     } else {
       console.warn("⚠ Није слика, прескачем:", рел);
@@ -58,8 +64,7 @@ function обиђи(пут, релативнаСтаза) {
   return чвор;
 }
 
-// корен: сваки потфолдер од ./kviz је област
-const корен = { назив: "root", деца: [], карте: [] };
+const корен = { назив: "root", деца: [], карте: [], позадина: null };
 for (const област of fs.readdirSync(КОРЕН).sort()) {
   const пун = path.join(КОРЕН, област);
   if (fs.statSync(пун).isDirectory()) {
